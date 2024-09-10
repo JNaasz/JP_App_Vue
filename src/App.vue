@@ -1,15 +1,19 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <ComponentContainer sheet-data=""/>
+  <!-- <HelloWorld msg="Well hello there"/> -->
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import ComponentContainer from './components/ComponentContainer.vue'
+// import HelloWorld from './components/HelloWorld.vue'
+// import getSheetData from './api/sheets';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    ComponentContainer,
+    // HelloWorld
   }
 }
 </script>
