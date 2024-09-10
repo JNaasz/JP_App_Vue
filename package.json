@@ -12,7 +12,11 @@
   },
   "dependencies": {
     "core-js": "^3.8.3",
+    "cors": "^2.8.5",
     "express": "^4.20.0",
+    "googleapis": "^144.0.0",
+    "querystring-es3": "^0.2.1",
+    "stream-browserify": "^3.0.0",
     "vue": "^3.2.13"
   },
   "devDependencies": {
