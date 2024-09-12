@@ -15,7 +15,7 @@
 import HelloWorld from './HelloWorld.vue';
 import SheetData from './SheetData.vue';
 
-import { getSheetData } from '@/api/get';
+import { getSheetData } from '@/api/sheets';
 
 export default {
   name: 'ComponentContainer',
