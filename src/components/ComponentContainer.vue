@@ -1,9 +1,11 @@
 <template>
   <div class="main">
-		<div class="section-container">
-      <LandingPage msg="Well hello there" v-if="activeTab === 'Home'"/>
+    <v-btn @click="showAlert">Click Me</v-btn>
+    <v-alert v-if="alertVisible" type="success">Vuetify is working!</v-alert>
+    <div class="section-container">
+      <LandingPage msg="Well hello there" v-if="activeTab === 'Home'" />
       <SheetData v-else :sheetData="sheetData" />
-		</div>
+    </div>
     <div class="tab-container">
       <TabComponent v-model="activeTab"></TabComponent>
     </div>
@@ -29,12 +31,18 @@ export default {
       sheetData: null,
       section: 'landing',
       activeTab: 'Home',
+      alertVisible: false,
     };
   },
   watch: {
     activeTab(newVal, oldVal) {
       console.log('Tab changed from', oldVal, 'to', newVal);
     }
+  },
+  methods: {
+    showAlert() {
+      this.alertVisible = !this.alertVisible;
+    },
   },
   async mounted() {
     try {
