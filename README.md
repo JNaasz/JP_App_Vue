@@ -1,24 +1,5 @@
 # jp_app_vue
 
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Uses Google Sheets as a DB to manager data for random things I want to track.
+Idea is to test out different free google APIs that can be used to store data. 
+All credentials used for Google apis are currently not committed to the repo.
