@@ -10,7 +10,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import LandingPage from './LandingPage.vue';
 import SheetData from './SheetData.vue';
 import TabComponent from './TabComponent.vue';
@@ -26,7 +26,7 @@ export default {
   },
   data() {
     return {
-      sheetData: null,
+      sheetData: undefined,
       section: 'landing',
       activeTab: 'Home',
     };

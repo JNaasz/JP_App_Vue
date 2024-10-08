@@ -1,15 +1,14 @@
 <template>
-  <img alt="Schwaasz logo" :src="require('@/assets/logo.png')">
+  <img alt="Schwaasz logo" src="./assets/logo.png">
   <div class="hello">
     <h1>{{ msg }}</h1>
     <p>
       click the DOG button to navigate to the sheet data template
-      <!-- <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>. -->
     </p>
   </div>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   name: 'LandingPage',
   props: {

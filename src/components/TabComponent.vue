@@ -10,7 +10,7 @@
   </v-btn>
 </template>
 
-<script>
+<script lang="ts">
 export default {
 	props: {
 		modelValue: String,
@@ -25,14 +25,14 @@ export default {
 			get() {
 				return this.modelValue;
 			},
-			set(value) {
+			set(value: String) {
 				this.$emit('update:modelValue', value);
 			},
 		}
 
 	},
 	methods: {
-		selectTab(tab) {
+		selectTab(tab: string) {
 			this.selectedTab = tab;
 		},
 	},
