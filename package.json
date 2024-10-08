@@ -2,18 +2,17 @@
   "name": "jp_app_vue",
   "version": "0.1.0",
   "private": true,
-  "main": "./api/server.js",
-  "type": "module",
   "scripts": {
-    "start": "node .",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "start": "node ."
   },
+  "main": "./api/server.js",
   "dependencies": {
     "core-js": "^3.8.3",
     "cors": "^2.8.5",
-    "express": "^4.20.0",
+    "express": "^2.5.11",
     "googleapis": "^144.0.0",
     "querystring-es3": "^0.2.1",
     "stream-browserify": "^3.0.0",
@@ -23,11 +22,16 @@
   "devDependencies": {
     "@babel/core": "^7.12.16",
     "@babel/eslint-parser": "^7.12.16",
+    "@typescript-eslint/eslint-plugin": "^5.4.0",
+    "@typescript-eslint/parser": "^5.4.0",
     "@vue/cli-plugin-babel": "~5.0.0",
     "@vue/cli-plugin-eslint": "~5.0.0",
-    "@vue/cli-service": "~5.0.0",
+    "@vue/cli-plugin-typescript": "~5.0.0",
+    "@vue/cli-service": "^3.3.1",
+    "@vue/eslint-config-typescript": "^9.1.0",
     "eslint": "^7.32.0",
     "eslint-plugin-vue": "^8.0.3",
+    "typescript": "~4.5.5",
     "vue-cli-plugin-vuetify": "~2.5.8"
   },
   "eslintConfig": {
@@ -37,10 +41,11 @@
     },
     "extends": [
       "plugin:vue/vue3-essential",
-      "eslint:recommended"
+      "eslint:recommended",
+      "@vue/typescript"
     ],
     "parserOptions": {
-      "parser": "@babel/eslint-parser"
+      "parser": "@typescript-eslint/parser"
     },
     "rules": {}
   },
@@ -49,5 +54,6 @@
     "last 2 versions",
     "not dead",
     "not ie 11"
-  ]
+  ],
+  "type": "module"
 }

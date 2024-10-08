@@ -23,7 +23,6 @@ const vuetify = createVuetify({
         dark: true,
       },
     },
-    options: { customProperties: true },
   },
 })
 
