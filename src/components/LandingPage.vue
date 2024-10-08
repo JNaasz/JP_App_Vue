@@ -1,5 +1,6 @@
 <template>
-  <img alt="Schwaasz logo" src="./assets/logo.png">
+  <img alt="Schwaasz logo" :src="logo">
+
   <div class="hello">
     <h1>{{ msg }}</h1>
     <p>
@@ -9,11 +10,18 @@
 </template>
 
 <script lang="ts">
+import logo from '@/assets/logo.png'; // Import the image
+
 export default {
   name: 'LandingPage',
   props: {
     msg: String
-  }
+  },
+  data() {
+    return {
+      logo, // Set it in the data
+    };
+  },
 }
 </script>
 
