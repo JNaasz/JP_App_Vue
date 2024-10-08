@@ -7,7 +7,7 @@ const port = process.env.PORT || 3000;
 // Serve static files from the 'public' directory
 app.use(express.static('public'));
 app.use(cors({
-  origin: 'http://localhost:8080' // Allow requests only from this origin
+  origin: 'http://localhost:5173' // Allow requests only from this origin
 }));
 
 // // Optional: Serve index.html manually from a different location
