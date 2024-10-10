@@ -1,12 +1,16 @@
 {
   "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "target": "ESNext",
+    "esModuleInterop": true,
     "isolatedModules": true,
     "skipLibCheck": true,
     "baseUrl": "src",
     "paths": {
       "@/*": ["*"]
     },
-    "typeRoots": ["./node_modules/@types", "./src/types"]
+    "typeRoots": ["./node_modules/@types", "./src/types", ".types"]
   },
   "files": [],
   "references": [
