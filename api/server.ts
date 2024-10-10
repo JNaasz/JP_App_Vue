@@ -1,8 +1,9 @@
-import { getSheetData } from './sheets.js';
+import { getSheetData } from './sheets';
 import express from 'express';
 import cors from 'cors';
 const app = express();
 const port = process.env.PORT || 3000;
+
 
 // Serve static files from the 'public' directory
 app.use(express.static('public'));
@@ -21,8 +22,8 @@ app.get('/', (req, res) => {
 
 app.get('/sheet-data', async (req, res) => {
   try {
-    const response = await getSheetData();
-    res.send(response.data);
+    const response: SheetData = await getSheetData();
+    res.send(response);
   } catch (error) {
     res.status(500).send('Error fetching data from Google Sheets');
   }
