@@ -1,10 +1,6 @@
 import { google } from 'googleapis';
 import credentials from '../secret/credentials.js';
-import {
-  SpreadsheetsValuesBatchResponse,
-  SpreadsheetsValuesResponse,
-  SpreadsheetsValues
-} from './types/responses';
+import { GaxiosResponse } from 'gaxios';
 
 // Authenticate using a service account
 const auth = new google.auth.GoogleAuth({
@@ -14,9 +10,8 @@ const auth = new google.auth.GoogleAuth({
 
 const sheets = google.sheets({ version: 'v4', auth });
 const { sheetId } = credentials;
-const range1 = 'Sheet1!A1:D5';
-const range2 = ['Sheet1!A1:D5', 'Sheet2!A1:D5'];
-
+// const sheetRange = 'Sheet1!A1:D5';
+const sheetRange = ['Sheet1!A1:D5', 'Sheet2!A1:D5'];
 
 /**
  * fetches sheet data as csv based on range input
@@ -25,18 +20,15 @@ const range2 = ['Sheet1!A1:D5', 'Sheet2!A1:D5'];
  * @param {string[] | string} range
  * @returns {Promise<SheetData>}
  */
-export async function getSheetData(spreadsheetId: string = sheetId, range: string[] | string = range2): Promise<SheetData> {
-  // determine whether request is for one or multiple sheets
-  const getRequest = typeof range == 'string'
-    ? getSheet
-    : getSheetBatch;
-
+export async function getSheetData(spreadsheetId: string = sheetId, range: string[] | string = sheetRange): Promise<SheetData> {
   try {
-    const response: SheetData = await getRequest(spreadsheetId, range);
+    const response: SheetData = await (typeof range === 'string'
+      ? getSheet(spreadsheetId, range)
+      : getSheetBatch(spreadsheetId, range));
     return response;
   } catch (error) {
     console.error(error);
-    throw (error);
+    throw error;
   }
 }
 
@@ -46,9 +38,9 @@ export async function getSheetData(spreadsheetId: string = sheetId, range: strin
  * @param {string} range 
  * @returns {Promise<SheetData>}
  */
-async function getSheet(spreadsheetId: string, range: string): Promise<SheetData> {  
+async function getSheet(spreadsheetId: string, range: string): Promise<SheetData> {
   try {
-    const response: SpreadsheetsValuesResponse = await new Promise((resolve, reject) => {
+    const response: GaxiosResponse = await new Promise((resolve, reject) => {
       sheets.spreadsheets.values.get(
         {
           spreadsheetId,
@@ -57,7 +49,7 @@ async function getSheet(spreadsheetId: string, range: string): Promise<SheetData
         (err, res) => {
           if (err) reject('The API returned an error: ' + err);
           else if (!res) reject('The API returned with null or undefined response: ' + res);
-          else resolve(res); // TODO: fix this complaint
+          else resolve(res);
         }
       );
     });
@@ -87,7 +79,7 @@ async function getSheet(spreadsheetId: string, range: string): Promise<SheetData
  */
 async function getSheetBatch(spreadsheetId: string, ranges: string[]): Promise<SheetData> {
   try {
-    const response: SpreadsheetsValuesBatchResponse = await new Promise((resolve, reject) => {
+    const response: GaxiosResponse = await new Promise((resolve, reject) => {
       sheets.spreadsheets.values.batchGet(
         {
           spreadsheetId,
@@ -95,7 +87,8 @@ async function getSheetBatch(spreadsheetId: string, ranges: string[]): Promise<S
         },
         (err, res) => {
           if (err) reject('The API returned an error: ' + err);
-          else resolve(res); // TODO: fix this complaint
+          else if (!res) reject('The API returned with null or undefined response: ' + res);
+          else resolve(res);
         }
       );
     });
@@ -124,7 +117,7 @@ async function getSheetBatch(spreadsheetId: string, ranges: string[]): Promise<S
  * @param {ValueRange} data
  * @returns {Sheet}
  */
-function formatSheet({ range, values }: { range: string; values: string[][] }): Sheet { 
+function formatSheet({ range, values }: { range: string; values: string[][] }): Sheet {
   const sheet: Sheet = {
     name: "",
     items: []
