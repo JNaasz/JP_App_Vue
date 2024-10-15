@@ -11,13 +11,18 @@
 
 <script lang="ts">
 export default {
-  name: 'SheetData',
+  name: 'SheetComponent',
   props: {
     sheetData: {
-      type: String,
-      default: 'no data'
-    }
-	}
+      type: Object as () => SheetData | undefined,
+      required: false,
+    },
+	},
+  computed: {
+    selectedTab() {
+      return this.sheetData == undefined ? 'No Tab Selected' : 'Tab 1';
+    },
+  },
 }
 </script>
 

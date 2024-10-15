@@ -2,7 +2,7 @@
   <div class="main">
     <div class="section-container">
       <LandingPage msg="Well hello there" v-if="activeTab === 'Home'" />
-      <SheetData v-else :sheetData="sheetData" />
+      <SheetComponent v-else :sheetData="sheetData" />
     </div>
     <div class="tab-container">
       <TabComponent v-model="activeTab"></TabComponent>
@@ -12,21 +12,21 @@
 
 <script lang="ts">
 import LandingPage from './LandingPage.vue';
-import SheetData from './SheetData.vue';
+import SheetComponent from './SheetComponent.vue';
 import TabComponent from './TabComponent.vue';
 
-import { getSheetData } from '@/api/sheets';
+import { getSheetData } from '../api/sheets';
 
 export default {
   name: 'ComponentContainer',
   components: {
     LandingPage,
-    SheetData,
+    SheetComponent,
     TabComponent,
   },
   data() {
     return {
-      sheetData: undefined,
+      sheetData: undefined as SheetData | undefined,
       section: 'landing',
       activeTab: 'Home',
     };
@@ -38,7 +38,9 @@ export default {
   },
   async mounted() {
     try {
-      this.sheetData = await getSheetData();
+      const data = await getSheetData();
+      this.sheetData = data;
+      console.log('sheet data:', this.sheetData, typeof this.sheetData);
     } catch (error) {
       console.error('Error fetching sheet data:', error);
     }

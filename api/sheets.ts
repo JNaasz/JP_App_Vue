@@ -1,5 +1,6 @@
 import { google } from 'googleapis';
-import credentials from '../secret/credentials.js';
+import credentials from '../config/credentials.js';
+import sheetConfig from '../config/sheets.js';
 import { GaxiosResponse } from 'gaxios';
 
 // Authenticate using a service account
@@ -10,8 +11,8 @@ const auth = new google.auth.GoogleAuth({
 
 const sheets = google.sheets({ version: 'v4', auth });
 const { sheetId } = credentials;
-// const sheetRange = 'Sheet1!A1:D5';
-const sheetRange = ['Sheet1!A1:D5', 'Sheet2!A1:D5'];
+const sheetRange = Object.values(sheetConfig)
+  .map(config => `${config.sheetName}!${config.columns}`); //['Sheet1!A1:D5', 'Sheet2!A1:D5'];
 
 /**
  * fetches sheet data as csv based on range input

@@ -29,7 +29,6 @@ export default {
 				this.$emit('update:modelValue', value);
 			},
 		}
-
 	},
 	methods: {
 		selectTab(tab: string) {
