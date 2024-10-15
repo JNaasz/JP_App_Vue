@@ -4,7 +4,7 @@ export default {
 		"columns": "A1:D5",
 	},
 	"plants": {
-		"sheetName": "Sheet1",
+		"sheetName": "Sheet2",
 		"columns": "A1:D5",
 	}
 }

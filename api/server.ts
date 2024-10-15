@@ -1,4 +1,5 @@
 import { getSheetData } from './sheets';
+import type { SheetData } from '../types/globals';
 import express from 'express';
 import cors from 'cors';
 const app = express();
@@ -22,7 +23,17 @@ app.get('/', (req, res) => {
 
 app.get('/sheet-data', async (req, res) => {
   try {
-    const response: SheetData = await getSheetData();
+    const response: SheetData = await getSheetData(null);
+    res.send(response);
+  } catch (error) {
+    res.status(500).send('Error fetching data from Google Sheets');
+  }
+});
+
+app.get('/sheet-data/:type', async (req, res) => {
+  const { type } = req.params;
+  try {
+    const response: SheetData = await getSheetData(type);
     res.send(response);
   } catch (error) {
     res.status(500).send('Error fetching data from Google Sheets');

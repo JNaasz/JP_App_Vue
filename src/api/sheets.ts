@@ -1,6 +1,16 @@
-export async function getSheetData(): Promise<SheetData> {
+/**
+ * sends a request to the server to fetch sheet data
+ * @param {string | null} sheetRange 
+ * @returns {SheetData}
+ */
+export async function getSheetData(sheetRange: string | null): Promise<SheetData> {
   try {
-    const response = await fetch('http://localhost:3000/sheet-data');
+    let url = 'http://localhost:3000/sheet-data';
+    if (sheetRange) {
+      url += `/${sheetRange}`;
+    }
+
+    const response = await fetch(url);
 
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);

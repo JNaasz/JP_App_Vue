@@ -1,7 +1,8 @@
 import { google } from 'googleapis';
-import credentials from '../config/credentials.js';
-import sheetConfig from '../config/sheets.js';
 import { GaxiosResponse } from 'gaxios';
+import credentials from '../config/credentials.js';
+import { formatSheet, getSheetRange } from './util.js';
+import type { SheetData } from '../types/globals';
 
 // Authenticate using a service account
 const auth = new google.auth.GoogleAuth({
@@ -11,8 +12,6 @@ const auth = new google.auth.GoogleAuth({
 
 const sheets = google.sheets({ version: 'v4', auth });
 const { sheetId } = credentials;
-const sheetRange = Object.values(sheetConfig)
-  .map(config => `${config.sheetName}!${config.columns}`); //['Sheet1!A1:D5', 'Sheet2!A1:D5'];
 
 /**
  * fetches sheet data as csv based on range input
@@ -21,12 +20,13 @@ const sheetRange = Object.values(sheetConfig)
  * @param {string[] | string} range
  * @returns {Promise<SheetData>}
  */
-export async function getSheetData(spreadsheetId: string = sheetId, range: string[] | string = sheetRange): Promise<SheetData> {
+export async function getSheetData(rangeKeys: string | null, spreadsheetId: string = sheetId): Promise<SheetData> {
   try {
-    const response: SheetData = await (typeof range === 'string'
-      ? getSheet(spreadsheetId, range)
-      : getSheetBatch(spreadsheetId, range));
-    return response;
+    const range = getSheetRange(rangeKeys);
+    return await (range.length > 1
+      ? getSheet(spreadsheetId, range[0])
+      : getSheetBatch(spreadsheetId, range)
+    );
   } catch (error) {
     console.error(error);
     throw error;
@@ -62,10 +62,9 @@ async function getSheet(spreadsheetId: string, range: string): Promise<SheetData
 
     if (response.data.values.length) {
       responseData.sheets.push(formatSheet(response.data));
-      return responseData;
-    } else {
-      return responseData;
     }
+
+    return responseData;
   } catch (error) {
     console.error(error);
     throw (error);
@@ -103,46 +102,11 @@ async function getSheetBatch(spreadsheetId: string, ranges: string[]): Promise<S
       response.data.valueRanges.forEach(vRange => {
         responseData.sheets.push(formatSheet(vRange));
       });
-      return responseData;
-    } else {
-      return responseData;
     }
+
+    return responseData;
   } catch (error) {
     console.error(error);
     throw (error);
   }
-}
-
-/**
- * Convert the csv response data to a more usable structure
- * @param {ValueRange} data
- * @returns {Sheet}
- */
-function formatSheet({ range, values }: { range: string; values: string[][] }): Sheet {
-  const sheet: Sheet = {
-    name: "",
-    items: []
-  };
-
-  // Extract the name from the range by splitting at the "!"
-  sheet.name = range.split("!")[0];
-
-  const [headers] = values.slice(0, 1);
-  const items: SheetItem[] = values.slice(1).map((row) => buildSheetItem(row, headers));
-
-  sheet.items = items;
-  return sheet;
-}
-
-/**
- * Convert the csv response data to a more usable structure
- * @param {string[]} row
- * @param {string[]} headers
- * @returns {SheetItem}
- */
-function buildSheetItem(row: string[], headers: string[]): SheetItem {
-  return headers.reduce((acc: SheetItem, header, i) => {
-    acc[header] = row[i]; // Assign row values to corresponding headers
-    return acc;
-  }, {} as SheetItem);
 }

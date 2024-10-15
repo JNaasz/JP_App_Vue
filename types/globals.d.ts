@@ -19,5 +19,5 @@ declare global {
 	}
 }
 
-export {};
+export type { SheetData, Sheet, SheetItem };
 

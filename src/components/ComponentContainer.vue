@@ -38,7 +38,7 @@ export default {
   },
   async mounted() {
     try {
-      const data = await getSheetData();
+      const data = await getSheetData('dog,plants');
       this.sheetData = data;
       console.log('sheet data:', this.sheetData, typeof this.sheetData);
     } catch (error) {
