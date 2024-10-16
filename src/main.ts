@@ -1,5 +1,9 @@
 import { createApp } from 'vue';
 
+// TODO: // set up color theming
+// https://vuetifyjs.com/en/styles/colors/#material-colors
+// import colors from 'vuetify/util/colors';
+
 // Vuetify
 import 'vuetify/styles';
 import { createVuetify } from 'vuetify';
