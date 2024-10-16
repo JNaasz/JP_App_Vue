@@ -1,39 +1,43 @@
 <template>
-  <v-btn
-    v-for="tab in tabs"
-    :key="tab"
-    @click="selectTab(tab)"
-    :class="{'v-btn--active': tab === selectedTab}"
-    variant="tonal"
-  >
-    {{ tab }}
-  </v-btn>
+  <v-tabs v-model="selectedTab" align-tabs="center" color="deep-purple-accent-4">
+    <v-tab v-for="(tab, index) in tabs" :key="index" @click="selectTab(index)">
+      {{ tab }}
+    </v-tab>
+  </v-tabs>
 </template>
 
 <script lang="ts">
 export default {
-	props: {
-		modelValue: String,
-	},
-	data() {
-		return {
-			tabs: ['Home', 'Dog'],
-		};
+  props: {
+    activeTab: {
+      type: Number,
+      required: true
+    },
+    tabs: {
+      type: Array,
+      required: true
+    },
 	},
 	computed: {
 		selectedTab: {
 			get() {
-				return this.modelValue;
+				return this.activeTab;
 			},
 			set(value: String) {
-				this.$emit('update:modelValue', value);
+				this.$emit('update:activeTab', value);
 			},
 		}
 	},
 	methods: {
-		selectTab(tab: string) {
+		selectTab(tab: number) {
 			this.selectedTab = tab;
 		},
 	},
 }
 </script>
+
+<style scoped>
+.v-tabs {
+  margin-bottom: 20px;
+}
+</style>

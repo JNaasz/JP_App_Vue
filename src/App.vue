@@ -1,14 +1,16 @@
 <template>
   <div id="app">
     <div class="main">
-    <div class="section-container">
-      <LandingPage msg="Well hello there" v-if="activeTab === 'Home'" />
-      <SheetComponent v-else :sheetData="sheetData" />
+      <v-container>
+        <TabComponent :activeTab="activeTab" :tabs="tabs" @update:activeTab="activeTab = $event" />
+
+        <!-- <transition name="fade"> -->
+          <LandingPage v-if="activeTab === 0" msg="Well hello there" />
+          <SheetComponent v-else-if="activeTab === 1" :sheetData="sheetData" />
+          <p v-else>Tab 3 content</p>
+        <!-- </transition> -->
+      </v-container>
     </div>
-    <div class="tab-container">
-      <TabComponent v-model="activeTab"></TabComponent>
-    </div>
-  </div>
   </div>
 </template>
 
@@ -16,7 +18,6 @@
 import LandingPage from './layouts/LandingPage.vue';
 import SheetComponent from './layouts/SheetComponent.vue';
 import TabComponent from './components/TabComponent.vue';
-
 import { getSheetData } from './api/sheets';
 
 export default {
@@ -29,14 +30,9 @@ export default {
   data() {
     return {
       sheetData: undefined as SheetData | undefined,
-      section: 'landing',
-      activeTab: 'Home',
+      activeTab: 0,
+      tabs: ['Home', 'Dog', 'Temp Tab']
     };
-  },
-  watch: {
-    activeTab(newVal, oldVal) {
-      console.log('Tab changed from', oldVal, 'to', newVal);
-    }
   },
   async mounted() {
     try {
@@ -50,7 +46,8 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+/* Basic app styles */
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
