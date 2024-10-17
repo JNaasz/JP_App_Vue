@@ -20,8 +20,8 @@
   },
   "include": [
     "vite.config.ts",
-    "src/**/*.ts",      // Include TypeScript files in the src folder
-    "src/**/*.vue",     // Include Vue single file components
-    "types/**/*.d.ts"   // Include global type declarations
+    "src/**/*.ts",         // Include TypeScript files in the src folder
+    "src/**/*.vue",        // Include Vue single file components
+    "../types/**/*.d.ts"   // Include global type declarations
   ]
 }

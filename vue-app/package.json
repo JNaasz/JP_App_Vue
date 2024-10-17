@@ -1,0 +1,26 @@
+{
+  "name": "jp_app_vue",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "main": "./api/server.js",
+  "dependencies": {
+    "core-js": "^3.8.3",
+    "querystring-es3": "^0.2.1",
+    "stream-browserify": "^3.0.0",
+    "vue": "^3.2.13",
+    "vuetify": "^3.7.2"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.1.4",
+    "tsx": "^4.19.1",
+    "typescript": "^5.5.3",
+    "vite": "^5.4.8",
+    "vue-tsc": "^2.1.6"
+  }
+}
