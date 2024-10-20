@@ -2,7 +2,7 @@ import { google } from 'googleapis';
 import { GaxiosResponse } from 'gaxios';
 import credentials from '../secret/credentials.js';
 import { formatSheet, getSheetRange } from './util.js';
-import type { SheetData } from '../types/globals';
+import type { SheetData } from '../types/globals.js';
 
 // Authenticate using a service account
 const auth = new google.auth.GoogleAuth({
