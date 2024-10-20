@@ -20,8 +20,6 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
-secret/credentials.js
-newP
 
 # react dependencies
 /.pnp
@@ -32,3 +30,6 @@ newP
 
 # production
 /build
+
+# secret files
+secret
