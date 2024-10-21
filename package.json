@@ -1,11 +1,18 @@
 {
-  "name": "jp_app_server",
+  "name": "jp_app",
   "version": "0.1.0",
   "private": true,
   "type": "module",
+  "workspaces": [
+    "app-vue",
+    "app-react"
+  ],
   "scripts": {
     "build-server": "tsc",
-    "server": "tsx ./server/index.ts"
+    "server": "tsx ./server/index.ts",
+    "start:react": "npm --workspace app-react run start",
+    "start:vue": "npm --workspace app-vue run dev",
+    "start": "npm run start:react & npm run start:vue"
   },
   "main": "./api/server.js",
   "dependencies": {
