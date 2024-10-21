@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts">
-import logo from '@/assets/logo.png'; // Import the image
+import logo from '/assets/logo.svg';
 
 export default {
   name: 'LandingPage',

@@ -18,7 +18,7 @@
 import LandingPage from './layouts/LandingPage.vue';
 import SheetComponent from './layouts/SheetComponent.vue';
 import TabComponent from './components/TabComponent.vue';
-import { getSheetData } from './api/sheets';
+import { getSheetData } from '../../common/api/sheets';
 
 export default {
   name: 'App',
