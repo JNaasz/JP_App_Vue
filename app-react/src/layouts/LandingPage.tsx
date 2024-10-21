@@ -1,10 +1,7 @@
-import logo from '../../../assets/logo.svg';
-//({ title }: { title: string })
 function LandingPage({msg}: { msg: String }) {
 	return (
 		<div className="layout-content">
-		<img alt="Schwaasz logo" src={logo} />
-
+		<img className="App-logo" src="/assets/logo.png" alt="Logo" />
 		<div className="hello">
 			<h1>{msg}</h1>
 			<p>
