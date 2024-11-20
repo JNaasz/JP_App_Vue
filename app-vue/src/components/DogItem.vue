@@ -2,7 +2,7 @@
 	<v-card class="dogItem">
     <p><span>{{ sheetItem.Date }} </span></p>
 		<p>Practiced for {{ sheetItem.Duration }}min in the {{ sheetItem.Place }}.</p>
-		<p v-if="sheetItem.Comment.length">{{ sheetItem.Comment }}.</p>
+		<p v-if="sheetItem.Comment?.length">{{ sheetItem.Comment }}.</p>
 	</v-card>
 </template>
 

@@ -1,3 +1,5 @@
+import type { SheetData } from '../../types/globals';
+
 /**
  * sends a request to the server to fetch sheet data
  * @param {string | null} sheetRange 
@@ -5,7 +7,7 @@
  */
 export async function getSheetData(sheetRange: string | null): Promise<SheetData> {
   try {
-    let url = 'http://localhost:3000/sheet-data';
+    let url = 'https://jensthing.schwaasz.com/sheet-data';
     if (sheetRange) {
       url += `/${sheetRange}`;
     }
@@ -17,6 +19,7 @@ export async function getSheetData(sheetRange: string | null): Promise<SheetData
     }
 
     const resJson: SheetData = await response.json(); // Specify the expected type here
+    console.log('res', resJson)
     return resJson;
   } catch (error) {
     console.error('Error:', error);
