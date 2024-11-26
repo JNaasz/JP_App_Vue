@@ -1,5 +1,5 @@
 <template>
-	<v-card class="dogItem">
+	<v-card class="training-item">
     <p><span>{{ sheetItem.Date }} </span></p>
 		<p>Practiced for {{ sheetItem.Duration }}min in the {{ sheetItem.Place }}.</p>
 		<p v-if="sheetItem.Comment?.length">{{ sheetItem.Comment }}.</p>
@@ -24,6 +24,7 @@ export default {
   border: 1px solid #6200ea;
   border-radius: 5px;
   padding: 10px 0 10px;
+  text-align: left;
 
   p {
     display: flex;

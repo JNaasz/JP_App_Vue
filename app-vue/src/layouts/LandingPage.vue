@@ -1,5 +1,5 @@
 <template>
-  <img alt="Schwaasz logo" :src="logo">
+  <img alt="dog logo" :src="logo">
 
   <div class="hello">
     <h1>{{ msg }}</h1>
@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts">
-import logo from '/assets/logo.svg';
+import logo from '../assets/logo.png';
 
 export default {
   name: 'LandingPage',

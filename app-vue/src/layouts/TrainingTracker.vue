@@ -1,33 +1,37 @@
 <template>
   <div class="sheetData">
     <div class="title">
-      <h2 v-if="lastTraing">
-        Last Training on {{ lastTraing }}
-      </h2>
+      <div class="last-date">
+        <h2 v-if="lastTraing">
+          Last Training: <br> {{ lastTraing }}
+        </h2> 
+      </div>
       <v-btn v-if="!logTraining" @click="beginLog">
         Log Training
       </v-btn>
     </div>
 
-    <div class="dogItems" v-if="!logTraining">
-      <DogItem v-for="item in sheetItems" :sheetItem="item"></DogItem>
+    <div class="trainingItems" v-if="!logTraining">
+      <TrainingItem v-for="item in sheetItems" :sheetItem="item"></TrainingItem>
     </div>
 
     <div class="bottom" v-if="logTraining">
-      <DogForm @update:trainingStatus="logTraining = $event"></DogForm>
+      <TrainingForm 
+      @update:trainingStatus="logTraining = $event"
+      @update:submitSuccess="logTraining = $event"></TrainingForm>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import DogItem from '../components/DogItem.vue';
-import DogForm from '../components/DogForm.vue';
+import TrainingItem from '../components/TrainingItem.vue';
+import TrainingForm from '../components/TrainingForm.vue';
 
 export default {
-  name: 'SheetComponent',
+  name: 'TrainingTracker',
   components: {
-    DogItem,
-    DogForm,
+    TrainingItem,
+    TrainingForm,
   },
   data: () => ({
     logTraining: false,
@@ -59,6 +63,12 @@ export default {
     },
     submit() {
       this.logTraining = false;
+    },
+    handleFormSubmit(isSuccess: boolean) {
+      if (isSuccess) {
+        this.logTraining = false;
+        // re-pull sheet items
+      }
     }
   }
 }
@@ -69,6 +79,11 @@ export default {
 .title {
   display: flex;
   justify-content: space-between;
+
+  .last-date {
+    flex: 1 1 auto;
+    text-align: left;
+  }
 }
 
 li {

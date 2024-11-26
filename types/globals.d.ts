@@ -17,7 +17,13 @@ declare global {
 		Comment: string;
 		[key: string]: string | number;
 	}
+
+	interface PostResponse {
+		success: boolean;
+		updatedCells?: number;
+		error?: string;
+	}
 }
 
-export type { SheetData, Sheet, SheetItem };
+export type { SheetData, Sheet, SheetItem, PostResponse };
 

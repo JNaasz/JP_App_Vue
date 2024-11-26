@@ -1,37 +1,31 @@
 <template>
-  <div id="app">
-    <div class="main">
-      <v-container>
-        <TabComponent :activeTab="activeTab" :tabs="tabs" @update:activeTab="activeTab = $event" />
-
-        <!-- <transition name="fade"> -->
-          <LandingPage v-if="activeTab === 0" msg="Well hello there" />
-          <SheetComponent v-else-if="activeTab === 1" :sheetData="sheetData" />
-          <p v-else>Tab 3 content</p>
-        <!-- </transition> -->
-      </v-container>
-    </div>
+  <div class="main">
+    <v-container>
+      <!-- <transition name="fade"> -->
+      <TrainingTracker v-if="activeTab === 0" :sheetData="sheetData" class="grow"/>
+      <div v-else class="grow"><p>Tab 3 content</p></div>
+      <!-- </transition> -->
+      <TabComponent :activeTab="activeTab" :tabs="tabs" @update:activeTab="activeTab = $event" class="fixed" />
+    </v-container>
   </div>
 </template>
 
 <script lang="ts">
-import LandingPage from './layouts/LandingPage.vue';
-import SheetComponent from './layouts/SheetComponent.vue';
+import TrainingTracker from './layouts/TrainingTracker.vue';
 import TabComponent from './components/TabComponent.vue';
 import { getSheetData } from '../../common/api/sheets';
 
 export default {
   name: 'App',
   components: {
-    LandingPage,
-    SheetComponent,
+    TrainingTracker,
     TabComponent,
   },
   data() {
     return {
       sheetData: undefined as SheetData | undefined,
       activeTab: 0,
-      tabs: ['Home', 'Dog', 'Temp Tab']
+      tabs: ['Home', 'Temp Tab']
     };
   },
   async mounted() {
@@ -48,11 +42,28 @@ export default {
 
 <style scoped>
 /* Basic app styles */
-#app {
+.main {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  margin-top: 60px;
+  padding-top: 20px;
+  height: 100%;
+
 }
+
+.main > div {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.grow {
+  flex-grow: 1;
+}
+
+.fixed {
+  flex-grow: 0;
+}
+
 </style>
