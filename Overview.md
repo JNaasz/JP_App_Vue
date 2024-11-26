@@ -1,36 +1,29 @@
-# jp_app_vue
+# Remaloo
 
-Task Tracking:
-* Dog Training
-* Plant H20 Schedule
-* Meal Prep (later)
-* Calendar (for each) with daily reminder of days events
+**What:** 
 
-Thoughts:
-Start with one section at a time (Dog, then Plant)
-Idea is to have a different credentials file for P and J so that we can have our own spreadsheets for tracking things that are not shared.
+As a dog owner I want a way to track progress we make with training.
+I want to be able to see when I tracked a training and when my partner tracked a training.
+I want to be able to add new training commands as we develop new ones.
+I want to see metrics for when we've tracked training (days of the week, what we worked on the most etc.)
+I want to gamify it so my partner and I can compete to hopefully inspire us to both work on training.
+I want a calendar to track any appiontments he might have.
 
-What:
-As a user, I want an app that I can share with my partner so that we can track different things together. 
+---
 
-The app should be accessible only by us and we should be able to see what the other person has entered so we limit redundancy and rework and know what's already been done.
-
-Features:
-* Calendar
+**Features:**
 * Training Tracker
-* Plant Watering Schedule
-* Meal Prep
+	* list of previous tracked items
+	* ability to add a new tracked item
+* Calendar for dog related events
+* Stats
+* Reminders
+* other things to track: baths, heartworm pills, dog park, bell isle, other enrichment
 
-Stories:
-Create Landing Page:
-[ ] Tabs to Navigate between Features
-[ ] In Progress Page for any Feature not complete
-[ ] Dailty Pop-Up for Calendar Notification (just pop once per day with dummy schedule)
+---
 
+**Stories:**
 
-
-
-
-
-
-
+[ ] Tabs to Navigate between Features <br>
+[ ] In Progress Page for any Feature not complete <br>
+[ ] Dailty Pop-Up for Calendar Notification (just pop once per day with dummy schedule) <br>
