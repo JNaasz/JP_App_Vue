@@ -4,7 +4,7 @@
       <div class="last-date">
         <h2 v-if="lastTraing">
           Last Training: <br> {{ lastTraing }}
-        </h2> 
+        </h2>
       </div>
       <v-btn v-if="!logTraining" @click="beginLog">
         Log Training
@@ -15,17 +15,27 @@
       <TrainingItem v-for="item in sheetItems" :sheetItem="item"></TrainingItem>
     </div>
 
-    <div class="bottom" v-if="logTraining">
+    <div class="training-form" v-if="logTraining">
       <TrainingForm 
       @update:trainingStatus="logTraining = $event"
-      @update:submitSuccess="logTraining = $event"></TrainingForm>
+      @update:submitSuccess="handleFormSubmit"></TrainingForm>
     </div>
+
+    <v-alert 
+      v-model="alert"
+      title="Error Adding Training Log."
+      text="Please try again."
+      type="error"
+      variant="tonal"
+      closable
+    ></v-alert>
   </div>
 </template>
 
 <script lang="ts">
 import TrainingItem from '../components/TrainingItem.vue';
 import TrainingForm from '../components/TrainingForm.vue';
+import { getSheetData } from '../../../common/api/sheets';
 
 export default {
   name: 'TrainingTracker',
@@ -34,18 +44,14 @@ export default {
     TrainingForm,
   },
   data: () => ({
+    sheetData: undefined as SheetData | undefined,
     logTraining: false,
     date: '',
     duration: 0,
     place: '',
     comment: '',
+    alert: false,
   }),
-  props: {
-    sheetData: {
-      type: Object as () => SheetData | undefined,
-      required: false,
-    },
-  },
   computed: {
     sheetItems() {
       return this.sheetData?.sheets[0].items;
@@ -55,6 +61,14 @@ export default {
     }
   },
   methods: {
+    async fetchItems() {
+      try {
+        const data = await getSheetData('dog,plants');
+        this.sheetData = data;
+      } catch (error) {
+        console.error('Error fetching sheet data:', error);
+      }
+    },
     beginLog() {
       this.logTraining = true;
     },
@@ -62,14 +76,24 @@ export default {
       this.logTraining = false;
     },
     submit() {
+      // re-fetch the training list
+      this.fetchItems();
       this.logTraining = false;
     },
     handleFormSubmit(isSuccess: boolean) {
+      console.log('handleFormSubmit', isSuccess);
       if (isSuccess) {
         this.logTraining = false;
-        // re-pull sheet items
+        this.fetchItems();
+      } else {
+        this.alert = true;
       }
+
+      console.log('this.alert', this.alert);
     }
+  },
+  async mounted() {
+    this.fetchItems();
   }
 }
 </script>
@@ -91,12 +115,35 @@ li {
   margin: 0 10px;
 }
 
-.bottom {
+.training-form {
   /* TODO: mixin/extend */
   margin-top: 30px;
   border: 1px solid #6200ea;
   border-radius: 5px;
   padding: 10px;
+}
+
+.v-alert {
+  margin-top: 20px;
+  text-align: left;
+}
+
+/* TODO: close icon is not showing properly */
+::v-deep(.v-alert__close .v-btn) {
+  color: white;
+  border: 2px solid white;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+}
+
+::v-deep(.v-alert__close .v-btn:hover) {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: yellow;
+}
+
+::v-deep(.v-alert__close .mdi-close) {
+  font-size: 20px;
 }
 
 </style>

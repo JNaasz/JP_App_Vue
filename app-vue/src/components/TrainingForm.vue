@@ -31,18 +31,12 @@ export default {
     },
     async submit() {
 			const sheetItem: SheetItem = this.buildSheetItem();
-			try {
-				const response: PostResponse = await setSheetData(sheetItem);
-				if (response.success) {
-					this.$emit('update:submitSuccess', true);
-				} else {
-					console.error('Error adding training item:', response.error);
-				}
-
-				this.$emit('update:submitSuccess', response.success);
-			} catch (error) {
-				console.error('Error adding training item:', error);
+			const response: PostResponse = await setSheetData(sheetItem);
+			if (response.success) {
+				this.$emit('update:submitSuccess', true);
+			} else {
 				this.$emit('update:submitSuccess', false);
+				console.error('Error adding training item:', response.error);
 			}
     },
     setInitialDate() {

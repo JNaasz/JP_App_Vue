@@ -13,7 +13,6 @@
 <script lang="ts">
 import TrainingTracker from './layouts/TrainingTracker.vue';
 import TabComponent from './components/TabComponent.vue';
-import { getSheetData } from '../../common/api/sheets';
 
 export default {
   name: 'App',
@@ -28,15 +27,6 @@ export default {
       tabs: ['Home', 'Temp Tab']
     };
   },
-  async mounted() {
-    try {
-      const data = await getSheetData('dog,plants');
-      this.sheetData = data;
-      console.log('sheet data:', this.sheetData, typeof this.sheetData);
-    } catch (error) {
-      console.error('Error fetching sheet data:', error);
-    }
-  }
 }
 </script>
 
