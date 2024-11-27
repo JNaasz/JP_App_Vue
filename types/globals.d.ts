@@ -8,6 +8,7 @@ declare global {
 	interface Sheet {
 		name: string;
 		items: SheetItem[];
+		headers: string[];
 	}
 	
 	interface SheetItem {
@@ -15,6 +16,7 @@ declare global {
 		Duration: string;
 		Place: string;
 		Comment: string;
+		Person: string;
 		[key: string]: string | number;
 	}
 
